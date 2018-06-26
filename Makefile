@@ -5,7 +5,7 @@ start:
 		npm run babel-node -- src/bin/gendiff.js
 
 test:
-    npm test
+		npm test
 
 lint: 
 		npm run eslint .
