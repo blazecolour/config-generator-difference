@@ -4,7 +4,7 @@ describe('difference files', () => {
   it('files from task', () => {
     const actual = genDiff(
       '__tests__/__fixtures__/before.json',
-      '__tests__/__fixtures__/after.json'
+      '__tests__/__fixtures__/after.json',
     );
     const expected = `{
   host: hexlet.io
