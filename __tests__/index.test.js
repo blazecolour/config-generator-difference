@@ -1,3 +1,4 @@
+import fs from 'fs';
 import genDiff from '../src';
 
 describe('difference files', () => {
@@ -6,14 +7,7 @@ describe('difference files', () => {
       '__tests__/__fixtures__/before.json',
       '__tests__/__fixtures__/after.json',
     );
-    const expected = `{
-  host: hexlet.io
-+ timeout: 20
-- timeout: 50
-- proxy: 123.234.53.22
-- follow: false
-+ verbose: true
-}`;
+    const expected = fs.readFileSync('./__tests__/__fixtures__/jsonDiff', 'utf8');
     expect(actual).toBe(expected);
   });
 });
