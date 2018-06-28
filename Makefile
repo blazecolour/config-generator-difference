@@ -2,7 +2,7 @@ install:
 		npm install
 
 start: 
-		npm run babel-node -- src/bin/gendiff.js
+		npm run babel-node -- src/bin/gendiff.js before.json after.json
 
 test:
 		npm test

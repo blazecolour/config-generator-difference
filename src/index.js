@@ -3,36 +3,36 @@ import _ from 'lodash';
 
 const propertyActions = [
   {
-    state: 'initial',
+    typeNode: 'initial',
     check: (obj1, obj2, key) =>
-      _.has(obj1, key) && _.has(obj2, key) && obj1[key] === obj2[key],
+      (_.has(obj1, key) && _.has(obj2, key)) && (obj1[key] === obj2[key]),
     process: (obj1, obj2, key) => `  ${key}: ${obj1[key]}`,
   },
   {
-    state: 'change',
+    typeNode: 'changed',
     check: (obj1, obj2, key) =>
-      _.has(obj1, key) && _.has(obj2, key) && obj1[key] !== obj2[key],
+      (_.has(obj1, key) && _.has(obj2, key)) && (obj1[key] !== obj2[key]),
     process: (obj1, obj2, key) =>
       `+ ${key}: ${obj2[key]}\n- ${key}: ${obj1[key]}`,
   },
   {
-    state: 'add',
+    typeNode: 'added',
     check: (obj1, obj2, key) => !_.has(obj1, key) && _.has(obj2, key),
     process: (obj1, obj2, key) => `+ ${key}: ${obj2[key]}`,
   },
   {
-    state: 'delete',
+    typeNode: 'deleted',
     check: (obj1, obj2, key) => _.has(obj1, key) && !_.has(obj2, key),
     process: (obj1, obj2, key) => `- ${key}: ${obj1[key]}`,
   },
 ];
 
 const genDiff = (file1, file2) => {
-  const obj1 = JSON.parse(fs.readFileSync(file1));
-  const obj2 = JSON.parse(fs.readFileSync(file2));
-  const keys = _.union(_.keys(obj1), _.keys(obj2));
+  const obj1 = JSON.parse(fs.readFileSync(file1, 'utf8'));
+  const obj2 = JSON.parse(fs.readFileSync(file2, 'utf8'));
+  const keys = _.union(Object.keys(obj1), Object.keys(obj2));
   const getPropertyActions = key =>
-    _.find(propertyActions, ({ check }) => check(obj1, obj2, key));
+    propertyActions.find(({ check }) => check(obj1, obj2, key));
   const result = keys.reduce((acc, key) => {
     const build = getPropertyActions(key).process;
     return [...acc, build(obj1, obj2, key)];

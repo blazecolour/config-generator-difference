@@ -7,7 +7,7 @@ describe('difference files', () => {
       '__tests__/__fixtures__/before.json',
       '__tests__/__fixtures__/after.json',
     );
-    const expected = fs.readFileSync('./__tests__/__fixtures__/jsonDiff', 'utf8');
+    const expected = fs.readFileSync('__tests__/__fixtures__/jsonDiff', 'utf8');
     expect(actual).toBe(expected);
   });
 });
