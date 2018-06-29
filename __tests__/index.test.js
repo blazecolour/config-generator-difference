@@ -22,3 +22,14 @@ describe('difference yaml files', () => {
     expect(actual).toBe(expected);
   });
 });
+
+describe('difference ini files', () => {
+  it('files from task', () => {
+    const actual = genDiff(
+      '__tests__/__fixtures__/before.ini',
+      '__tests__/__fixtures__/after.ini',
+    );
+    const expected = fs.readFileSync('__tests__/__fixtures__/iniDiff', 'utf8');
+    expect(actual).toBe(expected);
+  });
+});
