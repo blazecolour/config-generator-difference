@@ -4,12 +4,6 @@ import _ from 'lodash';
 import yaml from 'js-yaml';
 import ini from 'ini';
 
-const parsers = {
-  json: data => JSON.parse(data),
-  yml: data => yaml.safeLoad(data),
-  ini: data => ini.parse(data),
-};
-
 const propertyActions = [
   {
     typeNode: 'initial',
@@ -36,11 +30,16 @@ const propertyActions = [
   },
 ];
 
+const parsers = {
+  json: JSON.parse,
+  yml: yaml.safeLoad,
+  ini: ini.parse,
+};
+
 const genDiff = (file1, file2) => {
   const data1 = fs.readFileSync(file1, 'utf8');
   const data2 = fs.readFileSync(file2, 'utf8');
-  const [, ...rest] = path.extname(file1);
-  const fileExt = rest.join('');
+  const fileExt = path.extname(file1).slice(1);
   const obj1 = parsers[fileExt](data1);
   const obj2 = parsers[fileExt](data2);
   const keys = _.union(Object.keys(obj1), Object.keys(obj2));
