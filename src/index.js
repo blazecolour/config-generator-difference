@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
-import yaml from 'js-yaml';
-import ini from 'ini';
+import parsers from './parsers';
 
 const propertyActions = [
   {
@@ -29,12 +28,6 @@ const propertyActions = [
     process: (obj1, obj2, key) => `- ${key}: ${obj1[key]}`,
   },
 ];
-
-const parsers = {
-  json: JSON.parse,
-  yml: yaml.safeLoad,
-  ini: ini.parse,
-};
 
 const genDiff = (file1, file2) => {
   const data1 = fs.readFileSync(file1, 'utf8');
