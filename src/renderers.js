@@ -23,19 +23,19 @@ const stringify = (node, level) => {
 };
 
 const correctValue = (node, level) =>
-  (_.isObject(node) ? stringify(node, level) : node);
+  _.isObject(node) ? stringify(node, level) : node;
 
-export default (ast) => {
+export default ast => {
   const iter = (tree, level) =>
-    tree.reduce((acc, item) => {
+    tree.map(item => {
       const { key, typeNode, node } = item;
       const handler = handlers[typeNode];
       if (typeNode === 'children') {
-        return [...acc, handler(key, node, level, iter)];
+        return handler(key, node, level, iter);
       }
       const afterValue = correctValue(node.afterValue, level);
       const beforeValue = correctValue(node.beforeValue, level);
-      return [...acc, handler(key, { beforeValue, afterValue }, level, iter)];
-    }, []);
+      return handler(key, {beforeValue, afterValue}, level);
+    });
   return `{\n${_.flatten(iter(ast, 4)).join('\n')}\n}`;
 };
