@@ -1,41 +1,41 @@
 import _ from 'lodash';
 
 const handlers = {
-  embedded: (key, value, spaces, func) =>
-    `${' '.repeat(spaces)}${key}: {\n${func(value, spaces + 4)
-      .join('\n')}\n${' '.repeat(spaces)}}`,
-  initial: (key, value, spaces) =>
-    `${' '.repeat(spaces)}${key}: ${value.afterValue}`,
-  changed: (key, value, spaces) =>
-    `${' '.repeat(spaces - 2)}- ${key}: ${value.beforeValue}\n${' '
-      .repeat(spaces - 2)}+ ${key}: ${value.afterValue}`,
-  added: (key, value, spaces) =>
-    `${' '.repeat(spaces - 2)}+ ${key}: ${value.afterValue}`,
-  deleted: (key, value, spaces) =>
-    `${' '.repeat(spaces - 2)}- ${key}: ${value.beforeValue}`,
+  children: (key, node, level, fn) =>
+    `${' '.repeat(level)}${key}: {\n${fn(node, level + 4)
+      .join('\n')}\n${' '.repeat(level)}}`,
+  initial: (key, node, level) =>
+    `${' '.repeat(level)}${key}: ${node.afterValue}`,
+  changed: (key, node, level) =>
+    `${' '.repeat(level - 2)}- ${key}: ${node.beforeValue}\n${' '
+      .repeat(level - 2)}+ ${key}: ${node.afterValue}`,
+  added: (key, node, level) =>
+    `${' '.repeat(level - 2)}+ ${key}: ${node.afterValue}`,
+  deleted: (key, node, level) =>
+    `${' '.repeat(level - 2)}- ${key}: ${node.beforeValue}`,
 };
 
-const stringify = (value, spaces) => {
-  const str = Object.keys(value)
-    .map(key => `${' '.repeat(spaces + 4)}${key}: ${value[key]}`)
+const stringify = (node, level) => {
+  const str = Object.keys(node)
+    .map(key => `${' '.repeat(level + 4)}${key}: ${node[key]}`)
     .join('\n');
-  return `{\n${str}\n${' '.repeat(spaces)}}`;
+  return `{\n${str}\n${' '.repeat(level)}}`;
 };
 
-const correctValue = (value, spaces) =>
-  (_.isObject(value) ? stringify(value, spaces) : value);
+const correctValue = (node, level) =>
+  (_.isObject(node) ? stringify(node, level) : node);
 
 export default (ast) => {
-  const iter = (tree, spaces) =>
+  const iter = (tree, level) =>
     tree.reduce((acc, item) => {
-      const { typeNode, key, value } = item;
+      const { key, typeNode, node } = item;
       const handler = handlers[typeNode];
-      if (typeNode === 'embedded') {
-        return [...acc, handler(key, value, spaces, iter)];
+      if (typeNode === 'children') {
+        return [...acc, handler(key, node, level, iter)];
       }
-      const afterValue = correctValue(value.afterValue, spaces);
-      const beforeValue = correctValue(value.beforeValue, spaces);
-      return [...acc, handler(key, { beforeValue, afterValue }, spaces, iter)];
+      const afterValue = correctValue(node.afterValue, level);
+      const beforeValue = correctValue(node.beforeValue, level);
+      return [...acc, handler(key, { beforeValue, afterValue }, level, iter)];
     }, []);
   return `{\n${_.flatten(iter(ast, 4)).join('\n')}\n}`;
 };
