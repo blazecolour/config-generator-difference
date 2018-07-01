@@ -1,0 +1,127 @@
+[
+ {
+  "key": "common",
+  "typeNode": "children",
+  "node": [
+   {
+    "key": "setting1",
+    "typeNode": "initial",
+    "node": {
+     "beforeValue": "Value 1",
+     "afterValue": "Value 1"
+    }
+   },
+   {
+    "key": "setting2",
+    "typeNode": "deleted",
+    "node": {
+     "beforeValue": "200"
+    }
+   },
+   {
+    "key": "setting3",
+    "typeNode": "changed",
+    "node": {
+     "beforeValue": true,
+     "afterValue": {
+      "key": "value"
+     }
+    }
+   },
+   {
+    "key": "setting6",
+    "typeNode": "children",
+    "node": [
+     {
+      "key": "key",
+      "typeNode": "initial",
+      "node": {
+       "beforeValue": "value",
+       "afterValue": "value"
+      }
+     },
+     {
+      "key": "ops",
+      "typeNode": "added",
+      "node": {
+       "afterValue": "vops"
+      }
+     }
+    ]
+   },
+   {
+    "key": "setting4",
+    "typeNode": "added",
+    "node": {
+     "afterValue": "blah blah"
+    }
+   },
+   {
+    "key": "setting5",
+    "typeNode": "added",
+    "node": {
+     "afterValue": {
+      "key5": "value5"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "key": "group1",
+  "typeNode": "children",
+  "node": [
+   {
+    "key": "baz",
+    "typeNode": "changed",
+    "node": {
+     "beforeValue": "bas",
+     "afterValue": "bars"
+    }
+   },
+   {
+    "key": "foo",
+    "typeNode": "initial",
+    "node": {
+     "beforeValue": "bar",
+     "afterValue": "bar"
+    }
+   },
+   {
+    "key": "nest",
+    "typeNode": "changed",
+    "node": {
+     "beforeValue": {
+      "key": "value"
+     },
+     "afterValue": "str"
+    }
+   }
+  ]
+ },
+ {
+  "key": "group2",
+  "typeNode": "deleted",
+  "node": {
+   "beforeValue": {
+    "abc": "12345"
+   }
+  }
+ },
+ {
+  "key": "follow",
+  "typeNode": "added",
+  "node": {
+   "afterValue": false
+  }
+ },
+ {
+  "key": "group3",
+  "typeNode": "added",
+  "node": {
+   "afterValue": {
+    "fee": "100500"
+   }
+  }
+ }
+]
