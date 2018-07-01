@@ -33,8 +33,8 @@ export default (ast) => {
       if (typeNode === 'children') {
         return handler(key, node, level, iter);
       }
-      const afterValue = correctValue(node.afterValue, level);
       const beforeValue = correctValue(node.beforeValue, level);
+      const afterValue = correctValue(node.afterValue, level);
       return handler(key, { beforeValue, afterValue }, level);
     });
   return `{\n${_.flatten(iter(ast, 4)).join('\n')}\n}`;
