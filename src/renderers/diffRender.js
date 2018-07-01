@@ -21,7 +21,10 @@ const diffRender = (ast, level) =>
       initial: astNode =>
         `${' '.repeat(level)}${key}: ${correctValue(astNode.afterValue, level)}`,
       changed: astNode =>
-        `${' '.repeat(level - 2)}- ${key}: ${correctValue(astNode.beforeValue, level)}\n${' '.repeat(level - 2)}+ ${key}: ${correctValue(astNode.afterValue, level)}`,
+        `${' '.repeat(level - 2)}- ${key}: ${correctValue(
+          astNode.beforeValue,
+          level,
+        )}\n${' '.repeat(level - 2)}+ ${key}: ${correctValue(astNode.afterValue, level)}`,
       added: astNode =>
         `${' '.repeat(level - 2)}+ ${key}: ${correctValue(astNode.afterValue, level)}`,
       deleted: astNode =>
