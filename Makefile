@@ -7,6 +7,10 @@ start:
 test:
 		npm test
 
+build:
+		rm -rf dist
+		npm run build
+
 lint: 
 		npm run eslint .
 
