@@ -8,40 +8,27 @@ const stringify = (node, level) => {
 };
 
 const correctValue = (node, level) =>
-  _.isObject(node) ? stringify(node, level) : node;
+  (_.isObject(node) ? stringify(node, level) : node);
 
-const diffRender = (ast, level) => {
-  return ast.map(item => {
+const diffRender = (ast, level) =>
+  ast.map((item) => {
     const { key, typeNode, node } = item;
 
     const handlers = {
-      children: node =>
-        `${' '.repeat(level)}${key}: {\n${diffRender(node, level + 4).join(
-          '\n'
-        )}\n${' '.repeat(level)}}`,
-      initial: node =>
-        `${' '.repeat(level)}${key}: ${correctValue(node.afterValue, level)}`,
-      changed: node =>
-        `${' '.repeat(level - 2)}- ${key}: ${correctValue(
-          node.beforeValue,
-          level
-        )}\n${' '.repeat(level - 2)}+ ${key}: ${correctValue(
-          node.afterValue,
-          level
-        )}`,
-      added: node =>
-        `${' '.repeat(level - 2)}+ ${key}: ${correctValue(
-          node.afterValue,
-          level
-        )}`,
-      deleted: node =>
-        `${' '.repeat(level - 2)}- ${key}: ${correctValue(
-          node.beforeValue,
-          level
-        )}`
+      children: astNode =>
+        `${' '.repeat(level)}${key}: {\n${diffRender(astNode, level + 4)
+          .join('\n')}\n${' '.repeat(level)}}`,
+      initial: astNode =>
+        `${' '.repeat(level)}${key}: ${correctValue(astNode.afterValue, level)}`,
+      changed: astNode =>
+        `${' '.repeat(level - 2)}- ${key}: ${correctValue(astNode.beforeValue, level)}\n${' '.repeat(level - 2)}+ ${key}: ${correctValue(astNode.afterValue, level)}`,
+      added: astNode =>
+        `${' '.repeat(level - 2)}+ ${key}: ${correctValue(astNode.afterValue, level)}`,
+      deleted: astNode =>
+        `${' '.repeat(level - 2)}- ${key}: ${correctValue(astNode.beforeValue, level)}`,
     };
     const handler = handlers[typeNode];
     return handler(node);
   });
-};
+
 export default ast => `{\n${_.flatten(diffRender(ast, 4)).join('\n')}\n}`;
