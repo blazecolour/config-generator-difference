@@ -4,25 +4,26 @@ const isComplexValue = node =>
   (_.isObject(node) ? 'complex value' : `'${node}'`);
 
 const plainRender = (initialKey, ast) =>
-  ast.map((item) => {
-    const { key, typeNode, node } = item;
-    const handlers = {
-      children: (astKey, astNode) => plainRender(astKey, astNode),
-      initial: () => '',
-      changed: (astKey, astNode) =>
-        `Property '${astKey}' was updated. From ${isComplexValue(astNode.beforeValue)} to ${isComplexValue(astNode.afterValue)}`,
-      added: (astKey, astNode) =>
-        `Property '${astKey}' was added with ${
-          isComplexValue(astNode.afterValue) === 'complex value'
-            ? isComplexValue(astNode.afterValue)
-            : `value: ${isComplexValue(astNode.afterValue)}`
-        }`,
-      deleted: astKey => `Property '${astKey}' was removed`,
-    };
-    const handler = handlers[typeNode];
-    const finalKey = initialKey ? `${initialKey}.${key}` : key;
-    return handler(finalKey, node);
-  })
+  ast
+    .map((item) => {
+      const { key, typeNode, children } = item;
+      const handlers = {
+        nested: (astKey, astNode) => plainRender(astKey, astNode),
+        unchanged: () => '',
+        changed: (astKey, astNode) =>
+          `Property '${astKey}' was updated. From ${isComplexValue(astNode.before)} to ${isComplexValue(astNode.after)}`,
+        added: (astKey, astNode) =>
+          `Property '${astKey}' was added with ${
+            isComplexValue(astNode.after) === 'complex value'
+              ? isComplexValue(astNode.after)
+              : `value: ${isComplexValue(astNode.after)}`
+          }`,
+        deleted: astKey => `Property '${astKey}' was removed`,
+      };
+      const handler = handlers[typeNode];
+      const finalKey = initialKey ? `${initialKey}.${key}` : key;
+      return handler(finalKey, children);
+    })
     .filter(e => e)
     .join('\n');
 

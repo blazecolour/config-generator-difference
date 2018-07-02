@@ -1,50 +1,50 @@
 [
  {
   "key": "common",
-  "typeNode": "children",
-  "node": [
+  "typeNode": "nested",
+  "children": [
    {
     "key": "setting1",
-    "typeNode": "initial",
-    "node": {
-     "beforeValue": "Value 1",
-     "afterValue": "Value 1"
+    "typeNode": "unchanged",
+    "children": {
+     "before": "Value 1",
+     "after": "Value 1"
     }
    },
    {
     "key": "setting2",
     "typeNode": "deleted",
-    "node": {
-     "beforeValue": "200"
+    "children": {
+     "before": "200"
     }
    },
    {
     "key": "setting3",
     "typeNode": "changed",
-    "node": {
-     "beforeValue": true,
-     "afterValue": {
+    "children": {
+     "before": true,
+     "after": {
       "key": "value"
      }
     }
    },
    {
     "key": "setting6",
-    "typeNode": "children",
-    "node": [
+    "typeNode": "nested",
+    "children": [
      {
       "key": "key",
-      "typeNode": "initial",
-      "node": {
-       "beforeValue": "value",
-       "afterValue": "value"
+      "typeNode": "unchanged",
+      "children": {
+       "before": "value",
+       "after": "value"
       }
      },
      {
       "key": "ops",
       "typeNode": "added",
-      "node": {
-       "afterValue": "vops"
+      "children": {
+       "after": "vops"
       }
      }
     ]
@@ -52,15 +52,15 @@
    {
     "key": "setting4",
     "typeNode": "added",
-    "node": {
-     "afterValue": "blah blah"
+    "children": {
+     "after": "blah blah"
     }
    },
    {
     "key": "setting5",
     "typeNode": "added",
-    "node": {
-     "afterValue": {
+    "children": {
+     "after": {
       "key5": "value5"
      }
     }
@@ -69,32 +69,32 @@
  },
  {
   "key": "group1",
-  "typeNode": "children",
-  "node": [
+  "typeNode": "nested",
+  "children": [
    {
     "key": "baz",
     "typeNode": "changed",
-    "node": {
-     "beforeValue": "bas",
-     "afterValue": "bars"
+    "children": {
+     "before": "bas",
+     "after": "bars"
     }
    },
    {
     "key": "foo",
-    "typeNode": "initial",
-    "node": {
-     "beforeValue": "bar",
-     "afterValue": "bar"
+    "typeNode": "unchanged",
+    "children": {
+     "before": "bar",
+     "after": "bar"
     }
    },
    {
     "key": "nest",
     "typeNode": "changed",
-    "node": {
-     "beforeValue": {
+    "children": {
+     "before": {
       "key": "value"
      },
-     "afterValue": "str"
+     "after": "str"
     }
    }
   ]
@@ -102,8 +102,8 @@
  {
   "key": "group2",
   "typeNode": "deleted",
-  "node": {
-   "beforeValue": {
+  "children": {
+   "before": {
     "abc": "12345"
    }
   }
@@ -111,15 +111,15 @@
  {
   "key": "follow",
   "typeNode": "added",
-  "node": {
-   "afterValue": false
+  "children": {
+   "after": false
   }
  },
  {
   "key": "group3",
   "typeNode": "added",
-  "node": {
-   "afterValue": {
+  "children": {
+   "after": {
     "fee": "100500"
    }
   }

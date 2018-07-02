@@ -12,26 +12,26 @@ const correctValue = (node, level) =>
 
 const diffRender = (ast, level) =>
   ast.map((item) => {
-    const { key, typeNode, node } = item;
+    const { key, typeNode, children } = item;
 
     const handlers = {
-      children: astNode =>
-        `${' '.repeat(level)}${key}: {\n${diffRender(astNode, level + 4)
+      nested: node =>
+        `${' '.repeat(level)}${key}: {\n${diffRender(node, level + 4)
           .join('\n')}\n${' '.repeat(level)}}`,
-      initial: astNode =>
-        `${' '.repeat(level)}${key}: ${correctValue(astNode.afterValue, level)}`,
-      changed: astNode =>
+      unchanged: node =>
+        `${' '.repeat(level)}${key}: ${correctValue(node.after, level)}`,
+      changed: node =>
         `${' '.repeat(level - 2)}- ${key}: ${correctValue(
-          astNode.beforeValue,
+          node.before,
           level,
-        )}\n${' '.repeat(level - 2)}+ ${key}: ${correctValue(astNode.afterValue, level)}`,
-      added: astNode =>
-        `${' '.repeat(level - 2)}+ ${key}: ${correctValue(astNode.afterValue, level)}`,
-      deleted: astNode =>
-        `${' '.repeat(level - 2)}- ${key}: ${correctValue(astNode.beforeValue, level)}`,
+        )}\n${' '.repeat(level - 2)}+ ${key}: ${correctValue(node.after, level)}`,
+      added: node =>
+        `${' '.repeat(level - 2)}+ ${key}: ${correctValue(node.after, level)}`,
+      deleted: node =>
+        `${' '.repeat(level - 2)}- ${key}: ${correctValue(node.before, level)}`,
     };
     const handler = handlers[typeNode];
-    return handler(node);
+    return handler(children);
   });
 
 export default ast => `{\n${_.flatten(diffRender(ast, 4)).join('\n')}\n}`;
