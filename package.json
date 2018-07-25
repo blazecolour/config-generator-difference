@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blazecolour/project-lvl2-s285.git"
+    "url": "git+https://github.com/blazecolour/config-generator-difference.git"
   },
   "author": "Serg Shitikov <936x936@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blazecolour/project-lvl2-s285/issues"
+    "url": "https://github.com/blazecolour/config-generator-difference/issues"
   },
-  "homepage": "https://github.com/blazecolour/project-lvl2-s285#readme",
+  "homepage": "https://github.com/blazecolour/config-generator-difference#readme",
   "jest": {
     "testEnvironment": "node"
   },
