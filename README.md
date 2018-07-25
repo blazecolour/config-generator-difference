@@ -1,8 +1,3 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/blazecolour/project-lvl2-s285)
-[![Build Status](https://travis-ci.org/blazecolour/project-lvl2-s285.svg?branch=master)](https://travis-ci.org/blazecolour/project-lvl2-s285)
+[![Maintainability](https://api.codeclimate.com/v1/badges/59b10c3ea8e2b4fe021d/maintainability)](https://codeclimate.com/github/blazecolour/project-lvl2-s285/maintainability)
 
-[![NPM](https://nodei.co/npm/gendiff-blazecolour.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gendiff-blazecolour/)
-
-## Install
-
-```npm install -g gendiff-blazecolour```
+[![Coverage Status](https://coveralls.io/repos/github/blazecolour/project-lvl2-s285/badge.svg?branch=master)](https://coveralls.io/github/blazecolour/project-lvl2-s285?branch=master)
